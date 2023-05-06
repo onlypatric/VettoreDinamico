@@ -1,9 +1,9 @@
 
-public interface Array<T> {
+public interface Array<T extends BaseType> {
 
     int getSize();
 
-    void extend(Vector<T> v);
+    void extend(FSVector<T> v);
 
     void set(int index, T element);
 

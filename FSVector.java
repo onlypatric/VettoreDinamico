@@ -19,7 +19,7 @@ import java.util.Iterator;
  * @author Pintescul Patric https://www.github.com/onlypatric
  */
 
-public class Vector<Type> implements Array<Type>, Iterable<Type> {
+public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Type> {
 
     private static final Object[] EMPTY = {};
     protected Object[] vett;
@@ -52,7 +52,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
     /**
      * Generates an empty vector
      */
-    public Vector() {
+    public FSVector() {
         this.vett = EMPTY;
     }
 
@@ -61,7 +61,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
      * 
      * @param capacity
      */
-    public Vector(int capacity) {
+    public FSVector(int capacity) {
         this.vett = new Object[capacity];
     }
 
@@ -70,7 +70,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
      * 
      * @param v
      */
-    public Vector(Vector<Type> v) {
+    public FSVector(FSVector<Type> v) {
         this.vett = v.vett.clone();
     }
 
@@ -79,7 +79,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
      * 
      * @param v
      */
-    public Vector(Type[] v) {
+    public FSVector(Type[] v) {
         this.vett = v.clone();
     }
 
@@ -90,7 +90,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
         return this.getSize();
     }
 
-    public void extend(Vector<Type> v) {
+    public void extend(FSVector<Type> v) {
         for (Type obj : v.getDefaultArray()) {
             this.add(obj);
         }
@@ -162,7 +162,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
         Thread thread1 = new Thread(() -> {
             for (int i = 0; i < this.vett.length / 2; i++) {
                 if (!r.trovato)
-                    if ((Type) (this.vett[i]).toString() == value) {
+                    if (((Type) (this.vett[i])).toString() == value) {
                         r.trovato = true;
                         r.valore = i;
                         break;
@@ -173,7 +173,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
         Thread thread2 = new Thread(() -> {
             for (int i = this.vett.length / 2; i < this.vett.length; i++) {
                 if (!r.trovato)
-                    if ((Type) (this.vett[i]).toString() == value) {
+                    if (((Type) (this.vett[i])).toString() == value) {
                         r.trovato = true;
                         r.valore = i;
                         break;
@@ -231,7 +231,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
         Thread thread1 = new Thread(() -> {
             for (int i = 0; i < this.vett.length / 2; i++) {
                 if (!r.trovato)
-                    if (((Type) (this.vett[i])).equals(value)) {
+                    if ((((Type) (this.vett[i]))).equals(value)) {
                         r.trovato = true;
                         r.valore = i;
                         break;
@@ -242,7 +242,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
         Thread thread2 = new Thread(() -> {
             for (int i = this.vett.length / 2; i < this.vett.length; i++) {
                 if (!r.trovato)
-                    if (((Type) (this.vett[i])).equals(value)) {
+                    if ((((Type) (this.vett[i]))).equals(value)) {
                         r.trovato = true;
                         r.valore = i;
                         break;
@@ -282,8 +282,23 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
     }
 
     @Override
-    public Vector<Type> clone() throws CloneNotSupportedException {
-        Vector<Type> v = new Vector<Type>(getDefaultArray());
+    public FSVector<Type> clone() throws CloneNotSupportedException {
+        FSVector<Type> v = new FSVector<Type>(this);
+        return v;
+    }
+
+    /**
+     * makes a deep clone of the current dinamic vector, for this to work the type must support clone() method (usually every class has that)
+     * @return
+     * @throws CloneNotSupportedException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    public FSVector<Type> fullClone() throws CloneNotSupportedException {
+        FSVector<Type> v = new FSVector<Type>();
+        for (Type type : v) {
+            v.add((Type)type.clone());
+        }
         return v;
     }
 
@@ -315,7 +330,7 @@ public class Vector<Type> implements Array<Type>, Iterable<Type> {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Vector<Type> other = (Vector<Type>) obj;
+        FSVector<Type> other = (FSVector<Type>) obj;
         return Arrays.deepEquals(vett, other.vett);
     }
 }
