@@ -5,13 +5,12 @@ import java.util.Iterator;
 /**
  * <h1>
  * <strong>
- * Vettore dinamico
+ * Dinamic Vector
  * </strong>
  * </h1>
  * 
  * <p>
- * fa utilizzo di array primitivi
- * per creare un vettore che si ridimensiona in automatico
+ * Makes use of primitive arrays to implement a dinamic one which resizes automatically
  * </p>
  * 
  * @see Arrays
@@ -20,13 +19,13 @@ import java.util.Iterator;
  * @author Pintescul Patric https://www.github.com/onlypatric
  */
 
-public class Vettore<Type> implements Array<Type>, Iterable<Type> {
+public class Vector<Type> implements Array<Type>, Iterable<Type> {
 
     private static final Object[] EMPTY = {};
     protected Object[] vett;
 
     /**
-     * Itera all'interno dell'oggetto
+     * Iterator
      */
     public Iterator<Type> iterator() {
         return new Iterator<Type>() {
@@ -51,44 +50,47 @@ public class Vettore<Type> implements Array<Type>, Iterable<Type> {
     }
 
     /**
-     * Genera un vettore dinamico vuoto
+     * Generates an empty vector
      */
-    public Vettore() {
+    public Vector() {
         this.vett = EMPTY;
     }
 
     /**
-     * Genera un vettore dinamico avente una capacità predefinita iniziale
+     * Generates a vector given initial size
      * 
      * @param capacity
      */
-    public Vettore(int capacity) {
+    public Vector(int capacity) {
         this.vett = new Object[capacity];
     }
 
     /**
-     * Genera un vettore dinamico dato un precedente vettore dinamico
+     * Generates a vector given an old vector, it gets cloned!
      * 
      * @param v
      */
-    public Vettore(Vettore<Type> v) {
+    public Vector(Vector<Type> v) {
         this.vett = v.vett.clone();
     }
 
     /**
-     * Genera un vettore dinamico dato un precedente vettore non dinamico
+     * Generates a dinamic vector given a non dinamic and primitive one
      * 
      * @param v
      */
-    public Vettore(Type[] v) {
+    public Vector(Type[] v) {
         this.vett = v.clone();
     }
 
     public int getSize() {
         return this.vett.length;
     }
+    public int lenght(){
+        return this.getSize();
+    }
 
-    public void extend(Vettore<Type> v) {
+    public void extend(Vector<Type> v) {
         for (Type obj : v.getDefaultArray()) {
             this.add(obj);
         }
@@ -280,8 +282,8 @@ public class Vettore<Type> implements Array<Type>, Iterable<Type> {
     }
 
     @Override
-    public Vettore<Type> clone() throws CloneNotSupportedException {
-        Vettore<Type> v = new Vettore<Type>(getDefaultArray());
+    public Vector<Type> clone() throws CloneNotSupportedException {
+        Vector<Type> v = new Vector<Type>(getDefaultArray());
         return v;
     }
 
@@ -313,7 +315,7 @@ public class Vettore<Type> implements Array<Type>, Iterable<Type> {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Vettore<Type> other = (Vettore<Type>) obj;
+        Vector<Type> other = (Vector<Type>) obj;
         return Arrays.deepEquals(vett, other.vett);
     }
 }

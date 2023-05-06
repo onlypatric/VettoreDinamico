@@ -3,7 +3,7 @@ public interface Array<T> {
 
     int getSize();
 
-    void extend(Vettore<T> v);
+    void extend(Vector<T> v);
 
     void set(int index, T element);
 
