@@ -144,7 +144,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
         try {
             className = this.vett[0].getClass().getTypeName();
         } catch (Exception e) {
-            className = "Vuoto";
+            className = "Empty";
         }
         throw new NotFoundException(
                 String.format("Query \"%s\" has not been found in any Object of type \"%s\"", value, className));
@@ -158,7 +158,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
     @SuppressWarnings("unchecked")
     public int threadFinder(String value) throws NotFoundException {
 
-        Ricerca r = new Ricerca(-1, false);
+        Search r = new Search(-1, false);
         Thread thread1 = new Thread(() -> {
             for (int i = 0; i < this.vett.length / 2; i++) {
                 if (!r.trovato)
@@ -195,7 +195,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
         try {
             className = this.vett[0].getClass().getTypeName();
         } catch (Exception e) {
-            className = "Vuoto";
+            className = "Empty";
         }
         throw new NotFoundException(
                 String.format("Query \"%s\" has not been found in any Object of type \"%s\"", value, className));
@@ -213,7 +213,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
         try {
             className = this.vett[0].getClass().getTypeName();
         } catch (Exception e) {
-            className = "Vuoto";
+            className = "Empty";
         }
         throw new NotFoundException(
                 String.format("Query \"%s\" has not been found in any Object of type \"%s\"", value, className));
@@ -227,7 +227,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
     @SuppressWarnings("unchecked")
     public int threadFinder(Type value) throws NotFoundException {
 
-        Ricerca r = new Ricerca(-1, false);
+        Search r = new Search(-1, false);
         Thread thread1 = new Thread(() -> {
             for (int i = 0; i < this.vett.length / 2; i++) {
                 if (!r.trovato)
@@ -264,7 +264,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
         try {
             className = this.vett[0].getClass().getTypeName();
         } catch (Exception e) {
-            className = "Vuoto";
+            className = "Empty";
         }
         throw new NotFoundException(
                 String.format("Query \"%s\" has not been found in any Object of type \"%s\"", value, className));
@@ -316,7 +316,7 @@ public class FSVector<Type extends BaseType> implements Array<Type>, Iterable<Ty
         try {
             className = this.vett[0].getClass().getTypeName();
         } catch (Exception e) {
-            className = "Vuoto";
+            className = "Empty";
         }
         return String.format("%s<%s>%s", this.getClass().getTypeName(), className, Arrays.toString(vett));
     }

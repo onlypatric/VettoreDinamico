@@ -1,5 +1,5 @@
 /**
- * BaseType
+ * BaseType, something that has "clone" method avaiable
  */
 public class BaseType {
 
